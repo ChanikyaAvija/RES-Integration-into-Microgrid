@@ -1,0 +1,12 @@
+S=2000;
+Vdc=400;
+Fsw=7500;
+Vac=230;
+f=50;
+delIL=0.2*(S/Vac);
+L1=(Vdc/(4*Fsw*delIL))
+L2=((0.1*Vac^2)/(S*2*pi*f))-L1
+C=(0.05*S)/((Vac^2)*2*pi*50)
+Fres=(1/(2*pi))*((L1+L2)/(L1*L2*C))^(1/2)
+Fg=10*f
+Fss=0.5*Fsw
