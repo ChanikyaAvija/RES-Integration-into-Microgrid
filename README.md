@@ -4,6 +4,10 @@
 This project presents the design and simulation of a **hybrid renewable energy microgrid** integrating **Solar PV**, **Wind Energy Conversion System (WECS)**, and a **Battery Energy Storage System (BESS)** into a stable **DC microgrid**, followed by AC grid synchronization through a controlled inverter.  
 The system is developed and tested using **MATLAB/Simulink**.
 
+**Role:** Boost converter design and MPPT Implementation.
+**Mentor:** Dr. D Ravi Kumar            
+Team size: 05                
+
 ---
 
 ## 🔋 Project Overview
