@@ -1,57 +1,74 @@
-# Grid-Connected Hybrid PV & Wind Generator system with Battery Energy Storage
+# 🌱 Renewable Energy Sources Integration into a Microgrid  
+*A Hybrid Solar–Wind–Battery Grid-Connected System (MATLAB/Simulink)*
 
-This repository contains the Simulink model and supporting files for a **grid-connected hybrid photovoltaic (PV) + wind generation system** with a battery energy storage system (BESS). The model includes MPPT algorithms (Incremental Conductance and Perturb & Observe variants), DC–DC converters (boost, bidirectional), and a grid-connected full-bridge inverter.
-
-## Contents
-
-```
-Grid-Connected-Hybrid-PV-Wind-BESS/
-├── model/
-│   ├── Singlephase_INC_grid.slx        # Main Simulink model (SLX)
-│   ├── slx_model_extracted.xml         # Extracted model XML (for inspection)
-│   ├── blocks_summary.csv              # Summary of blocks & parameters
-│   ├── blocks_full.json                # Full block parameter dump (JSON)
-│   └── images/
-│       └── system_*.png/jpg            # Screenshots of the model diagram
-├── matlab/
-│   ├── Design_BoostPV.m
-│   ├── Design_Boostwind.m
-│   ├── Design_Boostbat.m
-│   └── LCL_Calculation.m
-├── docs/
-│   ├── architecture.md
-│   ├── mppt_algorithms.md
-│   ├── inverter_control.md
-│   └── block_parameters.md
-├── .gitignore
-├── LICENSE (MIT)
-└── README.md
-```
-
-## How to use
-
-1. **Requirements**
-   - MATLAB with Simulink installed (compatible with `.slx` files).
-   - Recommended: Recent MATLAB release (R2018b or later) with Simscape / SimPowerSystems if using physical components.
-
-2. **Open the model**
-   - Open `model/Singlephase_INC_grid.slx` in MATLAB/Simulink.
-   - Inspect subsystems or run simulations after configuring solver and parameters.
-
-3. **Documentation**
-   - Read the files in the `docs/` folder for an overview of architecture, MPPT approaches used, and inverter control strategy.
-   - `model/blocks_summary.csv` provides a quick reference of blocks and key parameters.
-
-4. **Licensing**
-   - See `LICENSE` (MIT). Adjust if you prefer another license.
-
-## Notes
-- The `slx_model_extracted.xml`, `blocks_full.json`, and `blocks_summary.csv` were generated to help review and document the model programmatically.
-- If you intend to publish the `.slx` file in a public repo, ensure that you are allowed to share any third-party licensed blocks or protected content.
+This project presents the design and simulation of a **hybrid renewable energy microgrid** integrating **Solar PV**, **Wind Energy Conversion System (WECS)**, and a **Battery Energy Storage System (BESS)** into a stable **DC microgrid**, followed by AC grid synchronization through a controlled inverter.  
+The system is developed and tested using **MATLAB/Simulink**.
 
 ---
 
-If you want, I can:
-- Initialize a Git repository and make an initial commit here.
-- Create a ZIP of the repo ready for upload to GitHub.
-- Generate a short `CONTRIBUTING.md` or sample GitHub Actions workflow for automated checks.
+## 🔋 Project Overview
+
+Modern power systems are gradually shifting toward decentralized and sustainable energy solutions. However, renewable sources like solar and wind are naturally **intermittent**. This project addresses that challenge by combining multiple sources and integrating a **battery storage unit** to maintain stability, reliability, and continuous power flow.
+
+The hybrid system includes:
+
+- **Solar PV Generation**
+- **Wind Turbine + PMSG**
+- **Battery Energy Storage**
+- **DC–DC Converters (Boost & Bidirectional)**
+- **MPPT Algorithms**
+- **Grid-Tied Inverter with PLL Synchronization**
+- **DC Microgrid Architecture**
+
+---
+
+## ⚡ System Architecture
+
+### **1. Solar PV Subsystem**
+- User-defined PV array (8 modules in series, 1 string)
+- Maximum power ~2 kW at STC  
+- **Incremental Conductance MPPT** used for maximum power extraction  
+- **Boost converter** steps up the voltage to the DC bus
+
+### **2. Wind Energy Conversion Subsystem**
+- Wind turbine rated at **2.5 kW**
+- Permanent Magnet Synchronous Generator (**PMSG**)
+- AC output rectified via **diode bridge**
+- **P&O MPPT** algorithm optimizes wind energy capture  
+- DC–DC **boost converter** regulates output to the DC microgrid
+
+### **3. Battery Energy Storage System**
+- Lithium-Ion battery bank  
+- Rated at **240 V, 48 Ah (≈ 11.52 kWh)**  
+- Connected through a **bidirectional buck–boost converter**
+- Supports:
+  - **Charging** (absorbs excess renewable power)
+  - **Discharging** (supplies power during deficits)
+- DC-bus voltage regulation + SoC-based control
+
+### **4. Inverter + Grid Interconnection**
+- Full-bridge voltage source inverter (VSI)
+- **d-q reference frame control** for active & reactive power flow
+- **PLL (Phase-Locked Loop)** for perfect grid synchronization
+- Allows:
+  - Exporting power to grid  
+  - Supplying local loads  
+  - Maintaining AC voltage and frequency
+
+---
+
+## 🔧 Control Algorithms Used
+
+| Subsystem | Control Method | Purpose |
+|----------|----------------|---------|
+| Solar PV | Incremental Conductance MPPT | Extract maximum PV power under varying irradiance |
+| Wind Turbine | Perturb & Observe (P&O) MPPT | Capture optimum wind power |
+| Battery | DC-bus Voltage Control + SoC Logic | Maintain DC link stability and energy balance |
+| Inverter | d-q Current Control + PWM + PLL | Grid synchronization & power quality |
+
+---
+
+## 🧩 Block Diagram Summary
+<img width="800" height="600" alt="Block Diagram" src="https://github.com/user-attachments/assets/c7bf947c-fc14-41e0-b4b2-ffd498771a90" />
+
+
