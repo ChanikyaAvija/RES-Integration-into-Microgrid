@@ -1,0 +1,23 @@
+# MATLAB / Simulink
+*.slx
+*.mdl
+*.asv
+*.mex*
+*.p
+*.mex*
+*.mat
+*.mexw64
+*.mltbx
+*.slxc
+*.slxp
+*.mdl~
+*.autosave
+*.log
+
+# Generated files
+/model/slx_model_extracted.xml
+/model/blocks_full.json
+
+# OS
+.DS_Store
+Thumbs.db
